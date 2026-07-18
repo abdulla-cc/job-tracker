@@ -1,0 +1,16 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Secrets & data — never committed
+.env
+*.db
+
+# Frontend (Phase 4)
+node_modules/
+dist/
+
+# OS noise
+.DS_Store
+Thumbs.db
