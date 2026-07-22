@@ -1,13 +1,13 @@
 from contextlib import asynccontextmanager
 from datetime import date
 
-from fastapi import Depends, FastAPI, status
+from fastapi import Depends, FastAPI, HTTPException, status
 from sqlmodel import Session, select
 
 import models  # noqa: F401 - registers tables on SQLModel.metadata
 from database import create_db_and_tables, get_session
 from models import Application
-from schemas import ApplicationCreate, ApplicationRead
+from schemas import ApplicationCreate, ApplicationRead, ApplicationUpdate
 
 
 @asynccontextmanager
@@ -22,6 +22,17 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+
+def get_application_or_404(application_id: int, session: Session) -> Application:
+    """Fetch an application by id, or raise a 404. Shared by GET/PATCH/DELETE."""
+    application = session.get(Application, application_id)
+    if application is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Application {application_id} not found",
+        )
+    return application
 
 
 @app.get("/health")
@@ -52,3 +63,42 @@ def create_application(
 @app.get("/applications", response_model=list[ApplicationRead])
 def list_applications(session: Session = Depends(get_session)):
     return session.exec(select(Application)).all()
+
+
+@app.get("/applications/{application_id}", response_model=ApplicationRead)
+def get_application(
+    application_id: int,
+    session: Session = Depends(get_session),
+):
+    return get_application_or_404(application_id, session)
+
+
+@app.patch("/applications/{application_id}", response_model=ApplicationRead)
+def update_application(
+    application_id: int,
+    payload: ApplicationUpdate,
+    session: Session = Depends(get_session),
+):
+    application = get_application_or_404(application_id, session)
+
+    updates = payload.model_dump(exclude_unset=True)
+    for field, value in updates.items():
+        setattr(application, field, value)
+
+    session.add(application)
+    session.commit()
+    session.refresh(application)
+    return application
+
+
+@app.delete(
+    "/applications/{application_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_application(
+    application_id: int,
+    session: Session = Depends(get_session),
+):
+    application = get_application_or_404(application_id, session)
+    session.delete(application)
+    session.commit()
