@@ -14,3 +14,6 @@ dist/
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Test cache
+.pytest_cache/
