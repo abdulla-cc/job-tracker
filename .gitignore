@@ -7,7 +7,7 @@ __pycache__/
 .env
 *.db
 
-# Frontend (Phase 4)
+# Frontend 
 node_modules/
 dist/
 
