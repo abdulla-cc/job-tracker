@@ -4,5 +4,7 @@ sqlmodel
 pytest
 httpx
 pwdlib[argon2]
+pydantic[email]
 pyjwt
 python-dotenv
+python-multipart
