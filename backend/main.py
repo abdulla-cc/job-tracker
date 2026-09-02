@@ -9,7 +9,14 @@ from database import create_db_and_tables, get_session
 from dependencies import get_current_user
 from models import Application, User
 from routers import auth
-from schemas import ApplicationCreate, ApplicationRead, ApplicationUpdate
+from schemas import (
+    AnalyzeRequest,
+    AnalyzeResponse,
+    ApplicationCreate,
+    ApplicationRead,
+    ApplicationUpdate,
+)
+from ai_service import analyze as analyze_jd
 
 
 @asynccontextmanager
@@ -121,3 +128,38 @@ def delete_application(
     application = get_application_or_404(application_id, user, session)
     session.delete(application)
     session.commit()
+
+
+# ---- AI analysis endpoint ----
+
+
+@app.post(
+    "/analyze",
+    response_model=AnalyzeResponse,
+)
+def analyze_job_description(
+    payload: AnalyzeRequest,
+    user: User = Depends(get_current_user),
+):
+    """Analyze a job description against the candidate profile.
+
+    Protected — only logged-in users can use the AI feature.
+    Returns structured JSON: requirements, fit_score, reasoning, and
+    suggested bullets to emphasize.
+    """
+    result = analyze_jd(payload.job_description)
+
+    # If the AI service returned an error, surface it as a 422 or 503
+    if "error" in result:
+        if result["error"] == "groq_api_error":
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="AI analysis is temporarily unavailable. Please try again.",
+            )
+        # analysis_unavailable — malformed response, still return gracefully
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Could not parse the AI response. Please try again with a different job description.",
+        )
+
+    return result

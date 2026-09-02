@@ -49,3 +49,26 @@ class UserRead(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
+
+
+# ---- AI analysis ----
+
+class AnalyzeRequest(BaseModel):
+    """What the frontend sends: just the raw job-description text."""
+    job_description: str = Field(min_length=20, max_length=50000)
+
+
+class AnalyzeResponse(BaseModel):
+    """Successful analysis result."""
+    requirements: list[str]
+    nice_to_haves: list[str]
+    fit_score: int
+    fit_reasoning: str
+    emphasize: list[str]
+
+
+class AnalyzeError(BaseModel):
+    """Structured error when analysis fails."""
+    error: str
+    detail: Optional[str] = None
+    raw_response: Optional[str] = None
