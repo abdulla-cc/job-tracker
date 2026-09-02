@@ -1,0 +1,71 @@
+.cv-page {
+  padding: var(--space-6) var(--space-8);
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.cv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-6);
+}
+
+.cv-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.cv-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+  max-width: 500px;
+}
+
+.cv-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: var(--text-muted);
+}
+
+.cv-message {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-4);
+}
+
+.cv-message-success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.cv-message-error {
+  background: #fef2f2;
+  color: var(--accent-red);
+  border: 1px solid #fecaca;
+}
+
+.cv-form {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  max-width: 800px;
+}
+
+.cv-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.cv-form textarea.input {
+  font-family: 'Courier New', monospace;
+  font-size: var(--font-size-xs);
+}

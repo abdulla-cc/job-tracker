@@ -1,0 +1,106 @@
+.tailor-page {
+  padding: var(--space-6) var(--space-8);
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.tailor-header {
+  margin-bottom: var(--space-6);
+}
+
+.tailor-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-top: var(--space-4);
+}
+
+.tailor-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.tailor-error {
+  background: #fef2f2;
+  color: var(--accent-red);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-4);
+}
+
+.tailor-action {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+  text-align: center;
+  max-width: 500px;
+}
+
+.tailor-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.tailor-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+}
+
+.tailor-loading-sub {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+}
+
+.tailor-result {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  max-width: 800px;
+}
+
+.tailor-exp-item {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.tailor-exp-item:last-child {
+  border-bottom: none;
+}
+
+.tailor-exp-header {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.tailor-bullets {
+  list-style: none;
+  padding: 0;
+}
+
+.tailor-bullets li {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  padding: var(--space-1) 0;
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.tailor-bullets li::before {
+  content: "•";
+  position: absolute;
+  left: var(--space-1);
+  color: var(--accent-brown);
+}
