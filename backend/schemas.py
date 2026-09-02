@@ -30,6 +30,7 @@ class ApplicationRead(BaseModel):
     status: str
     job_link: Optional[str]
     notes: Optional[str]
+    job_description: Optional[str]
     date_applied: date
     created_at: datetime
 
@@ -72,3 +73,47 @@ class AnalyzeError(BaseModel):
     error: str
     detail: Optional[str] = None
     raw_response: Optional[str] = None
+
+
+# ---- Base CV ----
+
+class BaseCVCreate(BaseModel):
+    """What the client sends to save their base CV."""
+    full_name: str = Field(min_length=1, max_length=200)
+    email: EmailStr
+    phone: Optional[str] = None
+    education: str = Field(min_length=10)     # JSON string
+    skills: str = Field(min_length=2)         # JSON string
+    experience: str = Field(min_length=10)    # JSON string
+    projects: str = Field(min_length=10)      # JSON string
+
+
+class BaseCVRead(BaseModel):
+    """What the client gets back — never exposes internal fields."""
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    full_name: str
+    email: EmailStr
+    phone: Optional[str]
+    education: str
+    skills: str
+    experience: str
+    projects: str
+    created_at: datetime
+    updated_at: datetime
+
+
+# ---- CV Tailoring ----
+
+class TailorRequest(BaseModel):
+    """What the frontend sends: the job description to tailor for."""
+    job_description: str = Field(min_length=20, max_length=50000)
+
+
+class TailorResponse(BaseModel):
+    """The tailored CV result from the AI."""
+    summary: str                          # 1-paragraph custom intro
+    skills: list[str]                     # reordered: matching skills first
+    experience: list[dict]                # rewritten bullets
+    projects: list[dict]                  # rewritten bullets
