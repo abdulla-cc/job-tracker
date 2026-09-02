@@ -5,7 +5,7 @@ DATABASE_URL = "sqlite:///job_tracker.db"
 # check_same_thread=False: required for SQLite + FastAPI (see note below)
 engine = create_engine(
     DATABASE_URL,
-    echo=True,                                    # prints every SQL statement
+    echo=False,                                    # prints every SQL statement
     connect_args={"check_same_thread": False},
 )
 
