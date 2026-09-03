@@ -8,6 +8,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../api/client";
 import ApplicationCard from "../components/ApplicationCard";
+import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import "./BoardPage.css";
 
 const COLUMNS = [
@@ -43,6 +44,12 @@ export default function BoardPage() {
     grouped[col.status] = applications.filter((app) => app.status === col.status);
   });
 
+  const totalApplied = applications.length;
+  const interviewingCount = applications.filter((app) => app.status === "interviewing").length;
+  const offerCount = applications.filter((app) => app.status === "offer").length;
+  const offerRate = totalApplied > 0 ? Math.round((offerCount / totalApplied) * 100) : 0;
+  const tailoredReady = applications.filter((app) => Boolean(app.job_description)).length;
+
   if (loading) {
     return (
       <div className="board-page">
@@ -53,6 +60,14 @@ export default function BoardPage() {
 
   return (
     <div className="board-page">
+      <AnimatedGridPattern
+        numSquares={40}
+        maxOpacity={0.25}
+        duration={3.5}
+        repeatDelay={1}
+        className="[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)] stroke-[#8B5E3C]/12 fill-[#8B5E3C]/15"
+      />
+
       <div className="board-header">
         <div>
           <h1 className="board-title">My Pipeline</h1>

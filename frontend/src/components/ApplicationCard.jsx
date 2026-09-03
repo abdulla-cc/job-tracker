@@ -6,6 +6,7 @@
  */
 
 import { useNavigate } from "react-router-dom";
+import { Button as MovingBorderCard } from "@/components/ui/moving-border";
 import "./ApplicationCard.css";
 
 const STATUS_LABELS = {
@@ -13,6 +14,13 @@ const STATUS_LABELS = {
   interviewing: "Interviewing",
   offer: "Offer",
   rejected: "Rejected",
+};
+
+const STATUS_BEAM_COLORS = {
+  applied: "bg-[radial-gradient(#8B5E3C_45%,transparent_70%)]",
+  interviewing: "bg-[radial-gradient(#8B5E3C_60%,transparent_70%)]",
+  offer: "bg-[radial-gradient(#4CAF50_60%,transparent_70%)]",
+  rejected: "bg-[radial-gradient(#999999_35%,transparent_70%)]",
 };
 
 export default function ApplicationCard({ application }) {
@@ -25,7 +33,14 @@ export default function ApplicationCard({ application }) {
   });
 
   return (
-    <div className="application-card">
+    <MovingBorderCard
+      as="div"
+      borderRadius="0.75rem"
+      duration={3600}
+      borderClassName={STATUS_BEAM_COLORS[status] || STATUS_BEAM_COLORS.applied}
+      containerClassName="application-card-wrapper w-full"
+      className="application-card"
+    >
       <div className="card-header">
         <div>
           <div className="card-company">{company}</div>
@@ -47,6 +62,6 @@ export default function ApplicationCard({ application }) {
       >
         ✨ Tailor CV
       </button>
-    </div>
+    </MovingBorderCard>
   );
 }

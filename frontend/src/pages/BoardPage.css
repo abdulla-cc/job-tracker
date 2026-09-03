@@ -1,10 +1,13 @@
 .board-page {
+  position: relative;
   padding: var(--space-6) var(--space-8);
   height: 100vh;
   overflow: hidden;
 }
 
 .board-header {
+  position: relative;
+  z-index: 10;
   margin-bottom: var(--space-6);
 }
 
@@ -39,6 +42,8 @@
 }
 
 .board-columns {
+  position: relative;
+  z-index: 10;
   display: flex;
   gap: var(--space-4);
   height: calc(100vh - 140px);
@@ -61,6 +66,7 @@
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .column-dot {
@@ -94,4 +100,9 @@
   padding: var(--space-8) var(--space-4);
   color: var(--text-muted);
   font-size: var(--font-size-sm);
+  border: 1.5px dashed var(--border-light);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  margin-top: var(--space-1);
 }
