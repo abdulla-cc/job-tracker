@@ -1,0 +1,131 @@
+.empty-hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 240px);
+  padding: 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.empty-hero-card {
+  background: #ffffff;
+  border: 1px solid #e8e0d8;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px rgba(139, 94, 60, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  max-width: 540px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-hero-icon-wrapper {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  background: rgba(139, 94, 60, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(139, 94, 60, 0.15);
+}
+
+.empty-hero-icon {
+  color: #8B5E3C;
+}
+
+.empty-hero-title {
+  color: #1a1a1a;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.empty-hero-subtitle {
+  color: #666666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+  max-width: 420px;
+}
+
+.empty-hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.empty-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.empty-hero-btn.primary {
+  background: #8B5E3C;
+  color: #ffffff;
+  border: 1px solid #8B5E3C;
+  box-shadow: 0 2px 8px rgba(139, 94, 60, 0.25);
+}
+
+.empty-hero-btn.primary:hover {
+  background: #724C30;
+  border-color: #724C30;
+  transform: translateY(-1px);
+}
+
+.empty-hero-btn.secondary {
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1px solid #e8e0d8;
+}
+
+.empty-hero-btn.secondary:hover {
+  background: rgba(139, 94, 60, 0.05);
+  border-color: #8B5E3C;
+  color: #8B5E3C;
+  transform: translateY(-1px);
+}
+
+.empty-hero-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fbf9f6;
+  border: 1px solid #e8e0d8;
+  border-radius: 0.625rem;
+  padding: 0.75rem 1rem;
+  max-width: 460px;
+  text-align: left;
+}
+
+.empty-hero-tip-icon {
+  color: #8B5E3C;
+  flex-shrink: 0;
+}
+
+.empty-hero-tip-text {
+  color: #666666;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.empty-hero-tip-text strong {
+  color: #1a1a1a;
+}
+

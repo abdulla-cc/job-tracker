@@ -71,7 +71,7 @@ export const LimelightNav = ({
   };
 
   return (
-    <nav className={`relative inline-flex items-center h-16 rounded-lg bg-card text-foreground border px-2 ${className}`}>
+    <nav className={`relative inline-flex items-center h-20 rounded-2xl bg-card text-foreground border px-3 ${className}`}>
       {items.map(({ id, icon, label, onClick }, index) => (
         <button
           key={id}
@@ -81,18 +81,18 @@ export const LimelightNav = ({
           onClick={() => handleItemClick(index, onClick)}
           aria-label={label}
           title={label}
-          style={{ padding: '0 1.25rem' }}
+          style={{ padding: '0 1.75rem' }}
         >
           {/* Floating Hover Tooltip */}
           {label && (
             <span
-              className="pointer-events-none absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:-translate-y-1 scale-90 group-hover:scale-100 z-50"
+              className="pointer-events-none absolute bottom-[calc(100%+12px)] left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:-translate-y-1 scale-90 group-hover:scale-100 z-50"
               style={{
-                padding: '0.35rem 0.65rem',
-                borderRadius: '0.375rem',
+                padding: '0.4rem 0.75rem',
+                borderRadius: '0.45rem',
                 background: '#1a1a1a',
                 color: '#ffffff',
-                fontSize: '0.75rem',
+                fontSize: '0.8rem',
                 fontWeight: 500,
                 whiteSpace: 'nowrap',
                 boxShadow: '0 4px 14px rgba(0, 0, 0, 0.5)',
@@ -107,7 +107,7 @@ export const LimelightNav = ({
                   top: '100%',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  borderWidth: '4px',
+                  borderWidth: '5px',
                   borderStyle: 'solid',
                   borderColor: '#1a1a1a transparent transparent transparent',
                 }}
@@ -115,7 +115,7 @@ export const LimelightNav = ({
             </span>
           )}
           {cloneElement(icon, {
-            className: `w-6 h-6 transition-opacity duration-100 ease-in-out ${
+            className: `w-7 h-7 transition-opacity duration-100 ease-in-out ${
               activeIndex === index ? 'opacity-100' : 'opacity-40'
             } ${icon.props.className || ''} ${iconClassName || ''}`,
           })}
@@ -124,12 +124,12 @@ export const LimelightNav = ({
 
       <div 
         ref={limelightRef}
-        className={`absolute top-0 z-10 w-11 h-[5px] rounded-full bg-primary shadow-[0_50px_15px_var(--primary)] ${
+        className={`absolute top-0 z-10 w-14 h-[6px] rounded-full bg-primary shadow-[0_50px_15px_var(--primary)] ${
           isReady ? 'transition-[left] duration-400 ease-in-out' : ''
         } ${limelightClassName}`}
         style={{ left: '-999px' }}
       >
-        <div className="absolute left-[-30%] top-[5px] w-[160%] h-14 [clip-path:polygon(5%_100%,25%_0,75%_0,95%_100%)] bg-gradient-to-b from-primary/30 to-transparent pointer-events-none" />
+        <div className="absolute left-[-30%] top-[6px] w-[160%] h-16 [clip-path:polygon(5%_100%,25%_0,75%_0,95%_100%)] bg-gradient-to-b from-primary/30 to-transparent pointer-events-none" />
       </div>
     </nav>
   );

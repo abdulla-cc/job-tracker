@@ -7,6 +7,9 @@
 
 import { useState } from "react";
 import { api } from "../api/client";
+import { AIAssistantCard } from "@/components/ui/ai-assistant-card";
+import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { Target, Sparkles, CheckCircle2, ListChecks } from "lucide-react";
 import "./AnalyzePage.css";
 
 export default function AnalyzePage() {
@@ -40,6 +43,14 @@ export default function AnalyzePage() {
 
   return (
     <div className="analyze-page">
+      <AnimatedGridPattern
+        numSquares={35}
+        maxOpacity={0.2}
+        duration={3.5}
+        repeatDelay={1}
+        className="[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)] stroke-[#8B5E3C]/12 fill-[#8B5E3C]/15"
+      />
+
       <div className="analyze-header">
         <h1 className="analyze-title">Analyze Job Description</h1>
         <p className="analyze-subtitle">
@@ -48,29 +59,73 @@ export default function AnalyzePage() {
       </div>
 
       <div className="analyze-content">
-        <div className="analyze-input-panel">
-          <label className="label">Job Description</label>
-          <textarea
-            className="input analyze-textarea"
-            placeholder="Paste the full job description here..."
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-          />
-          <button
-            className="btn btn-primary analyze-btn"
-            onClick={handleAnalyze}
-            disabled={loading || jobDescription.length < 20}
-          >
-            {loading ? "Analyzing..." : "🔍 Analyze"}
-          </button>
-        </div>
+        <AIAssistantCard
+          value={jobDescription}
+          onChange={setJobDescription}
+          onAnalyze={handleAnalyze}
+          loading={loading}
+        />
 
         <div className="analyze-results-panel">
           {error && <div className="analyze-error">{error}</div>}
 
+          {loading && (
+            <div className="analyze-loading-state">
+              <div className="analyze-spinner" />
+              <p className="analyze-loading-title">Analyzing Job Description...</p>
+              <p className="analyze-loading-subtitle">
+                Extracting core requirements and scoring fit via Llama 3.1
+              </p>
+            </div>
+          )}
+
           {!result && !error && !loading && (
-            <div className="analyze-empty">
-              <p>Paste a job description and click Analyze to see results.</p>
+            <div className="analyze-empty-preview">
+              <div className="preview-header">
+                <span className="preview-badge">AI Analysis Output</span>
+                <h3 className="preview-title">What You'll Receive</h3>
+                <p className="preview-subtitle">
+                  Our AI evaluates the job posting to generate clear, actionable guidance:
+                </p>
+              </div>
+
+              <div className="preview-cards">
+                <div className="preview-card">
+                  <div className="preview-card-icon">
+                    <Target size={18} />
+                  </div>
+                  <div>
+                    <h4 className="preview-card-title">Match Fit Score</h4>
+                    <p className="preview-card-desc">
+                      An objective rating showing how closely your profile fits the role.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="preview-card">
+                  <div className="preview-card-icon">
+                    <ListChecks size={18} />
+                  </div>
+                  <div>
+                    <h4 className="preview-card-title">Extracted Requirements</h4>
+                    <p className="preview-card-desc">
+                      Must-have qualifications cleanly separated from nice-to-have bonuses.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="preview-card">
+                  <div className="preview-card-icon">
+                    <Sparkles size={18} />
+                  </div>
+                  <div>
+                    <h4 className="preview-card-title">CV Tailoring Tips</h4>
+                    <p className="preview-card-desc">
+                      Specific skills, terminology, and keywords to highlight in your CV.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 

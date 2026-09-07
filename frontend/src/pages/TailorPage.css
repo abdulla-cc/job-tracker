@@ -1,7 +1,7 @@
 .tailor-page {
   padding: var(--space-6) var(--space-8);
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
+  padding-bottom: 7.5rem;
 }
 
 .tailor-header {

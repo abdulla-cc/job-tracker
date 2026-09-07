@@ -8,6 +8,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../api/client";
 import ApplicationCard from "../components/ApplicationCard";
+import EmptyPipelineHero from "../components/EmptyPipelineHero";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import "./BoardPage.css";
 
@@ -44,12 +45,6 @@ export default function BoardPage() {
     grouped[col.status] = applications.filter((app) => app.status === col.status);
   });
 
-  const totalApplied = applications.length;
-  const interviewingCount = applications.filter((app) => app.status === "interviewing").length;
-  const offerCount = applications.filter((app) => app.status === "offer").length;
-  const offerRate = totalApplied > 0 ? Math.round((offerCount / totalApplied) * 100) : 0;
-  const tailoredReady = applications.filter((app) => Boolean(app.job_description)).length;
-
   if (loading) {
     return (
       <div className="board-page">
@@ -77,27 +72,31 @@ export default function BoardPage() {
 
       {error && <div className="board-error">{error}</div>}
 
-      <div className="board-columns">
-        {COLUMNS.map((col) => (
-          <div key={col.status} className="board-column">
-            <div className="column-header">
-              <span className="column-dot">{col.dot}</span>
-              <span className="column-label">{col.label}</span>
-              <span className="column-count">{grouped[col.status].length}</span>
-            </div>
+      {applications.length === 0 ? (
+        <EmptyPipelineHero />
+      ) : (
+        <div className="board-columns">
+          {COLUMNS.map((col) => (
+            <div key={col.status} className="board-column">
+              <div className="column-header">
+                <span className="column-dot">{col.dot}</span>
+                <span className="column-label">{col.label}</span>
+                <span className="column-count">{grouped[col.status].length}</span>
+              </div>
 
-            <div className="column-cards">
-              {grouped[col.status].length === 0 ? (
-                <div className="column-empty">No applications</div>
-              ) : (
-                grouped[col.status].map((app) => (
-                  <ApplicationCard key={app.id} application={app} />
-                ))
-              )}
+              <div className="column-cards">
+                {grouped[col.status].length === 0 ? (
+                  <div className="column-empty">No applications</div>
+                ) : (
+                  grouped[col.status].map((app) => (
+                    <ApplicationCard key={app.id} application={app} />
+                  ))
+                )}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

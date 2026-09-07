@@ -23,7 +23,7 @@ const STATUS_BEAM_COLORS = {
   rejected: "bg-[radial-gradient(#999999_35%,transparent_70%)]",
 };
 
-export default function ApplicationCard({ application }) {
+export default function ApplicationCard({ application, isPreview = false }) {
   const navigate = useNavigate();
   const { id, company, role, status, date_applied } = application;
 
@@ -46,7 +46,7 @@ export default function ApplicationCard({ application }) {
           <div className="card-company">{company}</div>
           <div className="card-role">{role}</div>
         </div>
-        <button className="card-menu-btn" title="More options">⋯</button>
+        <button className="card-menu-btn" title="More options" disabled={isPreview}>⋯</button>
       </div>
 
       <div className="card-meta">
@@ -58,7 +58,8 @@ export default function ApplicationCard({ application }) {
 
       <button
         className="card-tailor-btn"
-        onClick={() => navigate(`/tailor/${id}`)}
+        onClick={() => !isPreview && navigate(`/tailor/${id}`)}
+        style={isPreview ? { opacity: 0.8, cursor: "default" } : undefined}
       >
         ✨ Tailor CV
       </button>
