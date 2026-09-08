@@ -42,7 +42,6 @@ services:
     name: job-tracker-web
     runtime: static
     rootDir: frontend
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     routes:
