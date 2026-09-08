@@ -1,0 +1,43 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: job_tracker_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:////app/data/job_tracker.db
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173
+      - JWT_SECRET=${JWT_SECRET:-default_dev_secret_change_me_in_production_12345}
+      - JWT_ALGORITHM=${JWT_ALGORITHM:-HS256}
+      - JWT_EXPIRE_MINUTES=${JWT_EXPIRE_MINUTES:-1440}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      - backend_data:/app/data
+    restart: unless-stopped
+    networks:
+      - job_tracker_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000}
+    container_name: job_tracker_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - job_tracker_network
+
+volumes:
+  backend_data:
+    driver: local
+
+networks:
+  job_tracker_network:
+    driver: bridge

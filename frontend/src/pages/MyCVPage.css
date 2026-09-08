@@ -1,71 +1,553 @@
+/* MyCVPage.css — Structured Master CV Profile Styling */
+
 .cv-page {
   padding: var(--space-6) var(--space-8);
   min-height: 100vh;
-  padding-bottom: 7.5rem;
+  padding-bottom: 7.5rem; /* Room for floating Limelight bottom navigation */
+  background: var(--page-bg);
 }
 
+.cv-container {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+/* Loading State */
+.cv-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: var(--space-3);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.cv-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e8e0d8;
+  border-top-color: #8B5E3C;
+  border-radius: 50%;
+  animation: cv-spin 0.8s linear infinite;
+}
+
+@keyframes cv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header */
 .cv-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: var(--space-6);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.cv-badge-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #ede5de;
+  color: #8B5E3C;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
 .cv-title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
+  font-size: 1.85rem;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
 }
 
 .cv-subtitle {
-  font-size: var(--font-size-sm);
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  margin-top: var(--space-1);
-  max-width: 500px;
+  max-width: 540px;
+  line-height: 1.5;
 }
 
-.cv-loading {
+.cv-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.cv-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.55rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e8e0d8;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cv-btn-secondary:hover {
+  background: #faf6f2;
+  border-color: #8B5E3C;
+  color: #8B5E3C;
+}
+
+.cv-save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.55rem 1.25rem !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(139, 94, 60, 0.2);
+}
+
+/* Alert Notification */
+.cv-alert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-5);
+  animation: cv-fade-in 0.2s ease-out;
+}
+
+@keyframes cv-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cv-alert-success {
+  background: #eaf6ec;
+  border: 1px solid #c3e6cb;
+  color: #1e6e38;
+}
+
+.cv-alert-error {
+  background: #fdf2f2;
+  border: 1px solid #fbd5d5;
+  color: #c81e1e;
+}
+
+.cv-alert-icon {
+  flex-shrink: 0;
+}
+
+/* Stack of Cards */
+.cv-sections-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Base Card Style */
+.cv-card {
+  background: #ffffff;
+  border: 1px solid #e8e0d8;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(139, 94, 60, 0.03);
+  overflow: hidden;
+}
+
+.cv-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #f2ece6;
+  background: #fdfbf9;
+}
+
+.cv-section-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f5efe9;
+  color: #8B5E3C;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
-  color: var(--text-muted);
+  flex-shrink: 0;
 }
 
-.cv-message {
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  margin-bottom: var(--space-4);
+.cv-section-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
 }
 
-.cv-message-success {
-  background: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
+.cv-section-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
 }
 
-.cv-message-error {
-  background: #fef2f2;
-  color: var(--accent-red);
-  border: 1px solid #fecaca;
+.cv-section-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
 }
 
-.cv-form {
-  background: var(--card-bg);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: var(--space-6);
-  max-width: 800px;
+.cv-count-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  background: #f0eae4;
+  color: #8B5E3C;
+  border-radius: 12px;
 }
 
-.cv-form-row {
+.cv-card-body {
+  padding: 1.5rem;
+}
+
+.cv-stack-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Form Fields & Grids */
+.cv-grid-3 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
 }
 
-.cv-form textarea.input {
-  font-family: 'Courier New', monospace;
-  font-size: var(--font-size-xs);
+.cv-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .cv-grid-3,
+  .cv-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cv-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-required {
+  color: #e74c3c;
+}
+
+.cv-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cv-input-icon {
+  position: absolute;
+  left: 12px;
+  color: #999999;
+  pointer-events: none;
+}
+
+.cv-input-with-icon {
+  padding-left: 2.3rem !important;
+}
+
+/* Skills Section Styles */
+.cv-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0.85rem;
+  background: #faf7f4;
+  border: 1px dashed #e2d9cf;
+  border-radius: var(--radius-md);
+  min-height: 52px;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cv-skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #dcd4cc;
+  color: #633f26;
+  font-size: 0.825rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  animation: cv-pop 0.15s ease-out;
+}
+
+@keyframes cv-pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.cv-tag-remove {
+  background: none;
+  border: none;
+  color: #999999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  border-radius: 50%;
+  transition: color 0.1s ease;
+}
+
+.cv-tag-remove:hover {
+  color: #e74c3c;
+}
+
+.cv-empty-hint {
+  font-size: 0.825rem;
+  color: #999999;
+  font-style: italic;
+  padding: 4px;
+}
+
+.cv-add-skill-row {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: 0.85rem;
+}
+
+.cv-skill-input {
+  flex: 1;
+}
+
+.cv-btn-add-skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.cv-skill-suggestions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+}
+
+.cv-suggestions-label {
+  color: var(--text-secondary);
+  font-size: 0.775rem;
+  font-weight: 500;
+}
+
+.cv-suggestions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cv-suggestion-chip {
+  background: #f5f0eb;
+  border: 1px solid #e8e0d8;
+  color: #8B5E3C;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cv-suggestion-chip:hover {
+  background: #8B5E3C;
+  color: #ffffff;
+  border-color: #8B5E3C;
+}
+
+/* Dynamic Item Cards (Education, Experience, Projects) */
+.cv-item-card {
+  background: #faf8f5;
+  border: 1px solid #eae2d9;
+  border-radius: 0.75rem;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cv-item-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ede5dc;
+}
+
+.cv-item-title {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.cv-item-title strong {
+  color: #8B5E3C;
+}
+
+.cv-btn-icon-danger {
+  background: none;
+  border: none;
+  color: #a89f97;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.cv-btn-icon-danger:hover {
+  color: #e74c3c;
+  background: #fee2e2;
+}
+
+/* Bullets List */
+.cv-bullets-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.cv-bullets-label {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cv-bullets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.cv-bullet-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cv-bullet-dot {
+  color: #8B5E3C;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.cv-bullet-input {
+  flex: 1;
+  font-size: 0.85rem !important;
+  padding: 0.4rem 0.65rem !important;
+}
+
+.cv-btn-bullet-remove {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.1s ease;
+}
+
+.cv-btn-bullet-remove:hover {
+  color: #e74c3c;
+}
+
+.cv-btn-add-bullet {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #8B5E3C;
+  font-size: 0.775rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  margin-left: 14px;
+  transition: background 0.15s ease;
+}
+
+.cv-btn-add-bullet:hover {
+  background: #f3ece5;
+}
+
+/* Add Section Button (Education, Experience, Project) */
+.cv-btn-add-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0.75rem;
+  background: #ffffff;
+  border: 1px dashed #d5cbc1;
+  border-radius: 0.75rem;
+  color: #8B5E3C;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cv-btn-add-section:hover {
+  background: #faf6f2;
+  border-color: #8B5E3C;
+}
+
+/* Bottom Footer Actions */
+.cv-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: var(--space-4) 0;
+  border-top: 1px solid #e8e0d8;
 }
