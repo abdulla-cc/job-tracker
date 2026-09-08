@@ -5,7 +5,11 @@
  * This means auth wiring happens once, not per-component.
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const rawApiBase = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE =
+  rawApiBase.startsWith("http://") || rawApiBase.startsWith("https://")
+    ? rawApiBase
+    : `https://${rawApiBase}`;
 
 /**
  * Make an authenticated API call.

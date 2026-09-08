@@ -55,7 +55,7 @@ services:
         fromService:
           type: web
           name: job-tracker-api
-          property: url
+          property: host
 
 # ------------------------------------------------------------------------------
 # 3. Managed PostgreSQL Database (Render Free Tier)
