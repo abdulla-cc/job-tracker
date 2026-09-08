@@ -81,7 +81,7 @@ export function SignInCard({ mode: initialMode = "login", onLogin, onRegister, l
   return (
     <div style={{ minHeight: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
       {/* Holographic background */}
-      <HolographicWall intensity={0.8} radius={200} />
+      <HolographicWall intensity={0.85} radius={230} />
 
       {/* Card container — above the wall */}
       <motion.div

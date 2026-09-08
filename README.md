@@ -2,6 +2,7 @@
 
 A full-stack, AI-powered app for tracking job applications and tailoring CVs. Built while job-hunting as a final-year CS (AI) student. 
 
+**Status:** Phases 1 through 4 complete. The app features a fully working React frontend, secure backend API, and Groq-powered AI analysis.
 **Status:** All Phases (1 through 5) complete! The app features a fully working React frontend, secure FastAPI backend, Groq-powered AI analysis, and complete Docker containerization with Render deployment automation.
 
 ## 🌟 Key Features
@@ -18,6 +19,7 @@ A full-stack, AI-powered app for tracking job applications and tailoring CVs. Bu
 |---|---|---|
 | **API** | FastAPI | Type-driven validation, auto-generated OpenAPI docs |
 | **ORM** | SQLModel | Models and API schemas in one type system; Postgres-ready |
+| **DB** | SQLite | Zero-config for MVP; easily swappable via `DATABASE_URL` |
 | **DB** | SQLite / PostgreSQL | Zero-config SQLite for dev/Docker; seamlessly swappable to Postgres for production |
 | **Auth** | JWT + Argon2 | Stateless API, memory-hard password hashing |
 | **AI** | Groq (Llama 3.1 70B) | Blazing fast inference for job-description analysis |
@@ -28,8 +30,10 @@ A full-stack, AI-powered app for tracking job applications and tailoring CVs. Bu
 
 ## 🚀 Running Locally
 
+You'll need two terminal windows to run both the backend and frontend.
 ### Option A: Running with Docker Compose (Recommended)
 
+### 1. Backend (FastAPI)
 Make sure Docker Desktop is installed and running, then:
 
 ```bash
@@ -58,8 +62,10 @@ source venv/Scripts/activate      # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
+*API runs at `http://127.0.0.1:8000`. Interactive docs at `/docs`.*
 *API runs at `http://127.0.0.1:8000`.*
 
+### 2. Frontend (React / Vite)
 #### 2. Frontend (React / Vite)
 
 ```bash
@@ -91,6 +97,7 @@ cd backend && pytest -v
 ## 🏗 Design Notes
 
 - **API schemas are separate from DB models** (`schemas.py` vs `models.py`) so clients cannot set server-controlled fields such as `id`, `created_at`, or `user_id`.
+- **UI Components** utilize `framer-motion` for complex animations like the moving border beams, which react dynamically to application statuses (e.g., green for 'Offer', warm brown for 'Interviewing').
 - **Multi-stage Docker builds** compile React assets in a Node environment, then transfer the lightweight static files to an alpine Nginx web server (~25MB) with SPA fallback routing.
 - **Passwords are hashed with Argon2id**, never stored or logged in plaintext.
 
@@ -100,4 +107,5 @@ cd backend && pytest -v
 - [x] Phase 2 — Auth (registration, login, JWT, per-user scoping)
 - [x] Phase 3 — AI job-description analysis (Groq integration)
 - [x] Phase 4 — React frontend (Tailwind v4, Kanban board, AI cards)
+- [ ] Phase 5 — Docker + deployment
 - [x] Phase 5 — Docker + deployment (Multi-stage Dockerfiles, Compose, Render Blueprint)

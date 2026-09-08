@@ -12,7 +12,7 @@ if DATABASE_URL.startswith("postgres://"):
 connect_args = {}
 if DATABASE_URL.startswith("sqlite"):
     connect_args["check_same_thread"] = False
-    
+
     # Ensure directory exists if storing in a subfolder (e.g. /app/data/job_tracker.db)
     db_path = DATABASE_URL.replace("sqlite:///", "")
     if "/" in db_path or "\\" in db_path:
